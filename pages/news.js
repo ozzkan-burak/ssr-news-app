@@ -14,13 +14,19 @@ const News = () => {
   )
 };
 
-Blogs.getInitialProps = async () => {
-  let data;
+News.getInitialProps = async () => {
+  let news;
 
   try {
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-    data = await res.json();
+    const res = await fetch("https://hn.algolia.com/v1/search?query=react");
+    news = await res.json();
   } catch (error) {
     console.log("ERROR", err);
+    news = [];
   }
+  return {
+    news
+  };
 }
+
+export default News;
