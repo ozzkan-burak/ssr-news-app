@@ -9,6 +9,12 @@ const News = () => {
     <Layout mainTitle="News">
       <div>
         <h2>List of News</h2>
+        <hr/>
+        {news.map((news, i)=> {
+          <p key={i}>
+            <a href={news.url} target="_blank">{news.title}</a>
+          </p>
+        })}
       </div>
     </Layout>
   )
@@ -18,14 +24,14 @@ News.getInitialProps = async () => {
   let news;
 
   try {
-    const res = await fetch("https://hn.algolia.com/v1/search?query=react");
+    const res = await fetch("https://hn.algolia.com/api/v1/search?query=react");
     news = await res.json();
   } catch (error) {
     console.log("ERROR", err);
     news = [];
   }
   return {
-    news
+    news: news.hits
   };
 }
 
